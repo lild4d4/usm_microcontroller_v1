@@ -31,7 +31,6 @@ module top(
     );
     
     logic word_end;
-    logic instr_query;
     logic cpu_run;
     
     logic io_control;
@@ -44,31 +43,36 @@ module top(
     
     logic div_clk,div_clk1;
     
-    logic PB_pressed_status;
-	logic PB_pressed_pulse;    
-	logic PB_released_pulse; 
-	logic PB_pressed_status1;
-	logic PB_pressed_pulse1;    
-	logic PB_released_pulse1; 
+//    logic PB_pressed_status;
+//	logic PB_pressed_pulse;    
+//	logic PB_released_pulse; 
+//	logic PB_pressed_status1;
+//	logic PB_pressed_pulse1;    
+//	logic PB_released_pulse1; 
     
     //Clocks
     clock_divider #(163) div(clk,~reset, div_clk);
 	clock_divider #(49999) div1(clk, ~reset, div_clk1);
     
     //buttons debouncer
-    PB_Debouncer_FSM #(25) debouncer(div_clk, ~reset, instr_query, PB_pressed_status, PB_pressed_pulse, PB_released_pulse);
-    PB_Debouncer_FSM #(25) debouncer1(div_clk, ~reset, run_cpu, PB_pressed_status1, PB_pressed_pulse1, PB_released_pulse1);
+    //PB_Debouncer_FSM #(25) debouncer(div_clk, ~reset, instr_query, PB_pressed_status, PB_pressed_pulse, PB_released_pulse);
+    //PB_Debouncer_FSM #(25) debouncer1(div_clk, ~reset, run_cpu, PB_pressed_status1, PB_pressed_pulse1, PB_released_pulse1);
     
     //exe
-    exe_fsm exe(div_clk,~reset,PB_pressed_pulse1,word_end,instr_query,cpu_run);
+    //exe_fsm exe(div_clk,~reset,PB_pressed_pulse1,word_end,instr_query,cpu_run);
+    
+    logic cpu_reset;
+    
+    //comunication controller
+    cpu_com_controller com_contr(clk,~reset,rx,PC,tx,cpu_reset,cpu_run,instr);
     
     //UART
-    UART_interface intr_queryy(clk,~reset,PB_pressed_pulse,PC,rx,tx,instr,word_end);
+    //UART_interface intr_queryy(clk,~reset,PB_pressed_pulse,PC,rx,tx,instr,word_end);
     
     //CPU
     cpu_usm_v1 cpu(cpu_run,~reset,instr,data_in,PC,data_out1,write_direction,extend_data,MemWrite,SizeLoad);
     
-    //Memory
+    //Memorycpu_run
     dmem memoria(cpu_run,MemWrite,SizeLoad,write_direction,data_out1,mem_data);
     
     //display
