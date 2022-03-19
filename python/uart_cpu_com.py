@@ -20,7 +20,7 @@ def enviar_instruccion(addr, memory, fpgaData):
         elif(i==7):
             fpgaData.write(bytearray(memory[addr][0]))
 
-f = open("D:/DanielHDL/RISC-V_Educational_CPU/io_test.txt","rb")
+f = open("D:/GitHub/usm_microcontroller_v1/Hex_programs/io_test.txt","rb")
 fpgaData = serial.Serial('COM4', 9600)
 fpgaData.timeout = 0.001
 
