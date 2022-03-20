@@ -23,7 +23,8 @@
 module cpu_com_controller(
     input logic clk,reset,rx,
     input logic [31:0] pc,
-    output logic tx,cpu_reset
+    output logic tx,cpu_reset,cpu_run,
+    output logic [31:0] uart_data
     );
     
     localparam IDLE = 0;
@@ -32,7 +33,7 @@ module cpu_com_controller(
     localparam SEND_PC = 3;
     localparam RUN_CPU = 4;
     
-    logic state, next_state;
+    logic [2:0] state, next_state;
     
     always_ff@(posedge clk) begin
         if(reset) state <= IDLE;
@@ -41,12 +42,14 @@ module cpu_com_controller(
     
     logic cmd_redy;
     logic cpu_redy;
-    logic cpu_run;
     logic send_pc;
-    logic [31:0] uart_data;
+    logic div_clk;
     
-    word_32_bit_uart_rx uart_rx(clk,reset,rx,uart_data,cmd_redy);
-    word_32bit_uart_tx uart_tx(clk,reset,send_pc,pc,tx);
+    clock_divider #(163) div(clk,reset, div_clk);
+    
+    word_32_bit_uart_rx uart_rx(div_clk,reset,rx,uart_data,cmd_redy);
+    word_32bit_uart_tx uart_send_redy(div_clk,reset,cpu_redy,32'd3,tx); //juntar ambos send en uno solo con un multiplexor dentro
+    word_32bit_uart_tx uart_tx(div_clk,reset,send_pc,pc,tx);
     
     always_comb begin
         next_state = state;
