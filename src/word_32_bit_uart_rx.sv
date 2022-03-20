@@ -54,6 +54,8 @@ module word_32_bit_uart_rx(
     localparam WAITB4 = 6;
     localparam BYTE4 = 7;
     localparam WAIT_END = 8;
+    localparam CMD = 9;
+    localparam CMD_END = 10;
     
     logic [3:0] state;
     logic [3:0] next_state;
@@ -64,14 +66,30 @@ module word_32_bit_uart_rx(
     end
     
     always_comb begin
-        word_end = 0;
         next_state =  state;
         pre_instr = instr;
+        word_end = 0;
         case(state)
             WAITB1: begin
                 if(byte_in == 1) begin
                     if(byte_end) next_state = BYTE1;
                 end 
+                else if(byte_in == 0) begin
+                    if(byte_end) next_state = CMD;
+                end
+            end
+            
+            CMD: begin
+                if(byte_end) begin
+                    word_end = 1;
+                    next_state = CMD_END;
+                end
+                else pre_instr[7:0] = byte_in;
+            end
+            
+            CMD_END: begin
+                word_end = 1;
+                next_state = WAITB1;
             end
             
             BYTE1: begin
@@ -109,8 +127,8 @@ module word_32_bit_uart_rx(
             
             BYTE4: begin
                 if(byte_end) begin
-                    next_state = WAIT_END;
                     word_end = 1;
+                    next_state = WAIT_END;
                 end
                 else pre_instr[31:24] = byte_in;
             end
