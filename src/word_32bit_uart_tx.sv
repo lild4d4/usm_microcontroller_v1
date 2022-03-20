@@ -24,7 +24,7 @@ module word_32bit_uart_tx(
     input logic clk, reset,
     input logic addr_query,
     input logic [31:0] addr,
-    output logic tx
+    inout logic tx
     );
     
     //byte query --------------------------------------------------------------------------------------
@@ -39,7 +39,11 @@ module word_32bit_uart_tx(
         else byte_data <= pre_byte_data;
     end
     
-    uart_sm_tx byte_tx(clk,reset,byte_query,byte_data,tx,byte_end);
+    logic pre_tx;
+    
+    assign tx = addr_query ? pre_tx : 1'hz;
+    
+    uart_sm_tx byte_tx(clk,reset,byte_query,byte_data,pre_tx,byte_end);
     
     //byte count --------------------------------------------------------------------------------------
     
