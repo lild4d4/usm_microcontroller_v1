@@ -85,7 +85,10 @@ module word_32_bit_uart_rx(
                     word_end = 1;
                     next_state = CMD_END;
                 end
-                else pre_instr[7:0] = byte_in;
+                else begin
+                    pre_instr[7:0] = byte_in;
+                    pre_instr[31:8] = 0;
+                end
             end
             
             CMD_END: begin

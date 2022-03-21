@@ -25,7 +25,7 @@ module cpu_com_controller(
     input logic [31:0] pc,
     output logic tx,cpu_reset,cpu_run,
     output logic [31:0] uart_data,
-    output logic PB_pressed_pulse,PB_pressed_pulse2,PB_pressed_pulse3,
+    output logic cmd_redy,cmd_send,instr_send,
     output logic [2:0] state
     );
     
@@ -39,26 +39,28 @@ module cpu_com_controller(
     
     logic [2:0] next_state;
     
-    always_ff@(posedge clk) begin
+    logic div_clk;
+    
+    always_ff@(posedge div_clk) begin
         if(reset) state <= IDLE;
         else state <= next_state;
     end
     
-    logic cmd_redy;
+    //logic cmd_redy;
     logic cpu_redy;
     logic send_pc;
-    logic div_clk;
-    logic cmd_send,instr_send;
+    
+    //logic cmd_send,instr_send;
     
     clock_divider #(163) div(clk,reset, div_clk);
     
-    logic PB_pressed_status,PB_released_pulse;
-    logic PB_pressed_status2,PB_released_pulse2;
-    logic PB_pressed_status3,PB_released_pulse3;
+    logic PB_pressed_status,PB_pressed_pulse,PB_released_pulse;
+    logic PB_pressed_status2,PB_pressed_pulse2,PB_released_pulse2;
+    logic PB_pressed_status3,PB_pressed_pulse3,PB_released_pulse3;
     
-    PB_Debouncer_FSM #(1) pb1(clk,reset,cmd_redy,PB_pressed_status,PB_pressed_pulse,PB_released_pulse);
-    PB_Debouncer_FSM #(1) pb2(clk,reset,cmd_send,PB_pressed_status2,PB_pressed_pulse2,PB_released_pulse2);
-    PB_Debouncer_FSM #(1) pb3(clk,reset,instr_send,PB_pressed_status3,PB_pressed_pulse3,PB_released_pulse3);
+    PB_Debouncer_FSM #(1) pb1(div_clk,reset,cmd_redy,PB_pressed_status,PB_pressed_pulse,PB_released_pulse);
+    PB_Debouncer_FSM #(1) pb2(div_clk,reset,cmd_send,PB_pressed_status2,PB_pressed_pulse2,PB_released_pulse2);
+    PB_Debouncer_FSM #(1) pb3(div_clk,reset,instr_send,PB_pressed_status3,PB_pressed_pulse3,PB_released_pulse3);
     
     word_32_bit_uart_rx uart_rx(div_clk,reset,rx,uart_data,cmd_redy);
     word_32bit_uart_tx uart_send_redy(div_clk,reset,cpu_redy,32'd3,tx,cmd_send); //juntar ambos send en uno solo con un multiplexor dentro
@@ -72,12 +74,12 @@ module cpu_com_controller(
         send_pc = 0;
         case(state)
             IDLE: begin
-                if(PB_pressed_pulse && uart_data == 1) begin
+                if(cmd_redy && uart_data == 1) begin
                     next_state = RESET_CPU; 
                 end
             end
             WAIT_CMD: begin
-                if(PB_pressed_pulse && uart_data == 2) begin
+                if(cmd_redy && uart_data == 2) begin
                     next_state = SEND_PC;
                 end
             end
@@ -87,11 +89,11 @@ module cpu_com_controller(
             end
             CPU_REDY: begin
                 cpu_redy = 1;
-                if(PB_pressed_pulse2) next_state = WAIT_CMD;
+                if(cmd_send) next_state = WAIT_CMD;
             end
             SEND_PC: begin
                 send_pc = 1;
-                if(PB_pressed_pulse3) next_state = WAIT_INST;
+                if(instr_send) next_state = WAIT_INST;
             end
             WAIT_INST: begin
                 if(PB_pressed_pulse) begin

@@ -109,7 +109,7 @@ module PB_Debouncer_FSM#(
     end    
 
     // sequential block for FSM. When clock ticks, update the state
-    always@(posedge clk) begin
+    always@(negedge clk) begin
         if(rst) 
             state <= PB_IDLE;
         else 
