@@ -24,7 +24,9 @@ module cpu_com_controller(
     input logic clk,reset,rx,
     input logic [31:0] pc,
     output logic tx,cpu_reset,cpu_run,
-    output logic [31:0] uart_data
+    output logic [31:0] uart_data,
+    output logic PB_pressed_pulse,PB_pressed_pulse2,PB_pressed_pulse3,
+    output logic [2:0] state
     );
     
     localparam IDLE = 0;
@@ -32,8 +34,10 @@ module cpu_com_controller(
     localparam RESET_CPU = 2;
     localparam SEND_PC = 3;
     localparam RUN_CPU = 4;
+    localparam CPU_REDY = 5;
+    localparam WAIT_INST = 6;
     
-    logic [2:0] state, next_state;
+    logic [2:0] next_state;
     
     always_ff@(posedge clk) begin
         if(reset) state <= IDLE;
@@ -44,12 +48,21 @@ module cpu_com_controller(
     logic cpu_redy;
     logic send_pc;
     logic div_clk;
+    logic cmd_send,instr_send;
     
     clock_divider #(163) div(clk,reset, div_clk);
     
+    logic PB_pressed_status,PB_released_pulse;
+    logic PB_pressed_status2,PB_released_pulse2;
+    logic PB_pressed_status3,PB_released_pulse3;
+    
+    PB_Debouncer_FSM #(1) pb1(clk,reset,cmd_redy,PB_pressed_status,PB_pressed_pulse,PB_released_pulse);
+    PB_Debouncer_FSM #(1) pb2(clk,reset,cmd_send,PB_pressed_status2,PB_pressed_pulse2,PB_released_pulse2);
+    PB_Debouncer_FSM #(1) pb3(clk,reset,instr_send,PB_pressed_status3,PB_pressed_pulse3,PB_released_pulse3);
+    
     word_32_bit_uart_rx uart_rx(div_clk,reset,rx,uart_data,cmd_redy);
-    word_32bit_uart_tx uart_send_redy(div_clk,reset,cpu_redy,32'd3,tx); //juntar ambos send en uno solo con un multiplexor dentro
-    word_32bit_uart_tx uart_tx(div_clk,reset,send_pc,pc,tx);
+    word_32bit_uart_tx uart_send_redy(div_clk,reset,cpu_redy,32'd3,tx,cmd_send); //juntar ambos send en uno solo con un multiplexor dentro
+    word_32bit_uart_tx uart_tx(div_clk,reset,send_pc,pc,tx,instr_send);
     
     always_comb begin
         next_state = state;
@@ -59,29 +72,35 @@ module cpu_com_controller(
         send_pc = 0;
         case(state)
             IDLE: begin
-                if(cmd_redy & uart_data == 1) begin
+                if(PB_pressed_pulse && uart_data == 1) begin
                     next_state = RESET_CPU; 
                 end
             end
             WAIT_CMD: begin
-                cpu_redy = 1;
-                if(cmd_redy & uart_data == 2) begin
+                if(PB_pressed_pulse && uart_data == 2) begin
                     next_state = SEND_PC;
                 end
             end
             RESET_CPU: begin
                 cpu_reset = 1;
-                next_state = WAIT_CMD;
+                next_state = CPU_REDY;
+            end
+            CPU_REDY: begin
+                cpu_redy = 1;
+                if(PB_pressed_pulse2) next_state = WAIT_CMD;
             end
             SEND_PC: begin
                 send_pc = 1;
-                if(cmd_redy) begin
+                if(PB_pressed_pulse3) next_state = WAIT_INST;
+            end
+            WAIT_INST: begin
+                if(PB_pressed_pulse) begin
                     next_state = RUN_CPU;
                 end
             end
             RUN_CPU: begin
                 cpu_run = 1;
-                next_state = WAIT_CMD;
+                next_state = CPU_REDY;
             end
         endcase
     end

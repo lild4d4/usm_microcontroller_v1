@@ -27,8 +27,13 @@ module top(
     output logic tx,
     output logic [6:0] segments,
     output logic [7:0] anodos,
-    output logic [7:0] Leds
+    output logic [7:0] Leds,
+    output logic rx_debug,tx_debug,PB_pressed_pulse,PB_pressed_pulse2,PB_pressed_pulse3,
+    output logic [2:0] state
     );
+    
+    assign rx_debug = rx;
+    assign tx_debug = tx;
     
     logic word_end;
     logic cpu_run;
@@ -64,7 +69,7 @@ module top(
     logic cpu_reset;
     
     //comunication controller
-    cpu_com_controller com_contr(clk,~reset,rx,PC,tx,cpu_reset,cpu_run,instr);
+    cpu_com_controller com_contr(clk,~reset,rx,PC,tx,cpu_reset,cpu_run,instr,PB_pressed_pulse,PB_pressed_pulse2,PB_pressed_pulse3,state);
     
     //UART
     //UART_interface intr_queryy(clk,~reset,PB_pressed_pulse,PC,rx,tx,instr,word_end);

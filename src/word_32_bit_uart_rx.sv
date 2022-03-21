@@ -71,6 +71,7 @@ module word_32_bit_uart_rx(
         word_end = 0;
         case(state)
             WAITB1: begin
+                word_end = 0;
                 if(byte_in == 1) begin
                     if(byte_end) next_state = BYTE1;
                 end 

@@ -24,7 +24,8 @@ module word_32bit_uart_tx(
     input logic clk, reset,
     input logic addr_query,
     input logic [31:0] addr,
-    inout logic tx
+    inout logic tx,
+    output logic word_send
     );
     
     //byte query --------------------------------------------------------------------------------------
@@ -75,6 +76,7 @@ module word_32bit_uart_tx(
         next_state= state;
         pre_byte_contador = byte_contador;
         byte_query = 0;
+        word_send = 0;
         pre_byte_data = byte_data;
         case(state)
             IDLE: begin
@@ -104,6 +106,7 @@ module word_32bit_uart_tx(
                     end
                     4: begin
                         next_state = IDLE;
+                        word_send = 1;
                     end
                 endcase
             end
