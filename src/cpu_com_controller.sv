@@ -52,7 +52,7 @@ module cpu_com_controller(
     
     //logic cmd_send,instr_send;
     
-    clock_divider #(13) div(clk,reset, div_clk);
+    clock_divider #(163) div(clk,reset, div_clk);
     
     logic PB_pressed_status,PB_pressed_pulse,PB_released_pulse;
     logic PB_pressed_status2,PB_pressed_pulse2,PB_released_pulse2;
