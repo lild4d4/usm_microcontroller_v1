@@ -6,13 +6,13 @@ To debug use the [Serial Debuger](https://github.com/jcontrerasf/serial_debbuger
 
 ## Directory Structure
 
-    ├── Diagrams   
-    ├── Hex_programs             
-    │   └── test.txt         
-    └─── src                  
-        ├── IO_drivers                
-        ├── Memory             
-        ├── cpu_usm_v1                 
-        ├── dbg                 
-        ├── nexys4ddr_constraints              
-        └── top.sv               
+    ├── Diagrams                       #Microcontroller diagrams and conections
+    ├── Hex_programs                   #Program´s dir
+    │   └── test.txt         
+    └─── src                           #src root dir
+        ├── IO_drivers                 #Input and Ouput controller
+        ├── Memory                     #main memory
+        ├── cpu_usm_v1                 #RISCV-cpu
+        ├── dbg                        #debug controller
+        ├── nexys4ddr_constraints      
+        └── top.sv                     #microcontroller top module
