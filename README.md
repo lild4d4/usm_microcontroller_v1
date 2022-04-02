@@ -5,15 +5,14 @@ This is a soft-microcontroller with the RISCV [cpu_usm_v1](https://github.com/li
 To debug use the [Serial Debuger](https://github.com/jcontrerasf/serial_debbuger) made by [Julio Contreras](https://github.com/jcontrerasf)
 
 ## Directory Structure
-```
-├── Diagrams   
-├── Hex_programs             
-│   └── test.txt         
-└─── src                  
-    ├── IO_drivers                
-    ├── Memory             
-    ├── cpu_usm_v1                 
-    ├── dbg                 
-    ├── nexys4ddr_constraints              
-    └── top.sv               
-```
+
+    ├── Diagrams   
+    ├── Hex_programs             
+    │   └── test.txt         
+    └─── src                  
+        ├── IO_drivers                
+        ├── Memory             
+        ├── cpu_usm_v1                 
+        ├── dbg                 
+        ├── nexys4ddr_constraints              
+        └── top.sv               
