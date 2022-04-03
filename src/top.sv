@@ -25,8 +25,6 @@ module top(
     input logic rx,
     input logic [7:0] IO_port,
     output logic tx,
-    //output logic [6:0] segments,
-    //output logic [7:0] anodos,
     output logic [7:0] Leds,
     output logic rx_debug,tx_debug,PB_pressed_pulse,PB_pressed_pulse2,PB_pressed_pulse3,
     output logic [2:0] state
@@ -64,7 +62,7 @@ module top(
     dmem memoria(cpu_run,MemWrite,SizeLoad,write_direction,data_out1,mem_data);
     
     //switches dir = 4
-    IO_driver switchesio(IO_port,write_direction,io_control,switches_data);
+    in_driver switchesio(IO_port,write_direction,io_control,switches_data);
     mux2 #(32) iomux(mem_data,switches_data,io_control,data_in);
     
     //LEDs dir = 8

@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module IO_driver(
+module in_driver(
     input logic [7:0] IO_port,
     input logic [31:0] adress,
     output logic io_control,
