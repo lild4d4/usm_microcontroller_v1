@@ -16,3 +16,5 @@ To debug use the [Serial Debuger](https://github.com/jcontrerasf/serial_debbuger
         ├── dbg                        #debug controller
         ├── nexys4ddr_constraints      
         └── top.sv                     #microcontroller top module
+
+![soft_microcontroller_diagram](https://user-images.githubusercontent.com/64666124/161451830-68defcc4-cce0-4518-b2fc-75403d031a52.png)
