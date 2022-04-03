@@ -8,7 +8,7 @@ To debug use the [Serial Debuger](https://github.com/jcontrerasf/serial_debbuger
 
     ├── Diagrams                       #Microcontroller diagrams and conections
     ├── Hex_programs                   #Program´s dir
-    │   └── test.txt         
+    │   └── General_Diagram           
     └── src                            #src root dir
         ├── IO_drivers                 #Input and Ouput controller
         ├── Memory                     #main memory
