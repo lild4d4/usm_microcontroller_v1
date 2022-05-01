@@ -7,6 +7,6 @@ main:
 
 repeat:
     lw t3,0(t1)
-    sw t2,0(t3)
+    sw t3,0(t2)
     j repeat
     
