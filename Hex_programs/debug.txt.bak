@@ -1,0 +1,23 @@
+Debug de codigo entregado por el compilador de RISCV
+
+00 00 02 93 -> 00101 0010011
+
+	Opcode: 0010011 	-> operaciones aritmeticas con immediates
+	rd: 	00101		-> 5
+	funct3: 000		-> addi
+	rs1:	00000		-> 0
+	imm:	..0		-> 0
+	
+	operacion final: addi r5,r0,0 -> r5 = 0 EN MI CPU EL R0 NO ES 0 POR ESO NO FUNCIONA	
+	
+00 42 83 13 -> 0100 00101 000 00110 0010011
+
+	Opcode: 0010011	-> operaciones aritmeticas con immediates
+	rd:	00110		-> 6
+	funct3: 000		-> addi
+	rs1:	00101		-> 5
+	imm:	0100		-> 4
+	
+	operacion final: addi r6,r5,4 -> r6 = 4
+	
+
