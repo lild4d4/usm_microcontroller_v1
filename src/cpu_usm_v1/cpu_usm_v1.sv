@@ -25,7 +25,7 @@ module cpu_usm_v1(
     input logic clk,reset,
     input logic [31:0] instr, data_in,
     //Outputs
-    output logic [31:0] PC, data_out, write_direction,extend_data,
+    output logic [31:0] PC, data_out, write_direction,
     output logic [1:0] MemWrite,
     output logic [2:0] SizeLoad
     );
@@ -40,6 +40,7 @@ module cpu_usm_v1(
     logic [4:0] rs1,rs2,rd;
     logic [31:0] rd1,rd2_1,rd2_2,data_reg,ALU_result,pctarget_result,next_pc,next_pc_2,ResultSrc_data;
     
+    //Controller Signals
     assign opcode = instr[6:0];
     assign funct7 = instr[31:25];
     assign funct3 = instr[14:12];
@@ -67,8 +68,6 @@ module cpu_usm_v1(
     
     assign write_direction = ALU_result;
     
-    
-
     //Result Src
     mux2 #(32) resultsrcmux(ALU_result,data_in,ResultSrc,ResultSrc_data);
     
@@ -77,9 +76,6 @@ module cpu_usm_v1(
     
     //preflop mux
     mux3 #(32) preflopmux(next_pc,pctarget_result,ResultSrc_data,PCSrc,next_pc_2);
-    
-    
-    
     
     //PLUS 4
     adder plus4(PC,32'd4,next_pc);

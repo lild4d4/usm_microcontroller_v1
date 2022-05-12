@@ -23,9 +23,9 @@
 module top(
     input logic clk, reset,run_cpu,
     input logic rx,
-    input logic [7:0] IO_port,
+    input logic [15:0] Switches,
     output logic tx,
-    output logic [7:0] Leds,
+    output logic [15:0] Leds,
     output logic rx_debug,tx_debug,PB_pressed_pulse,PB_pressed_pulse2,PB_pressed_pulse3,
     output logic [2:0] state
     );
@@ -59,7 +59,7 @@ module top(
     dmem memoria(cpu_run,MemWrite,SizeLoad,write_direction,data_out1,data_in);
     
     //switches dir = 4 <- this is just for test, should be at the end of the memory
-    in_driver switchesio(IO_port,write_direction,data_in);
+    in_driver switchesio(Switches,write_direction,data_in);
     
     //LEDs dir = 8 <- this is just for test, should be at the end of the memory
     out_driver leds(clk,~reset,data_out1,write_direction,Leds);

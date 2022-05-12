@@ -21,18 +21,15 @@
 
 
 module in_driver(
-    input logic [7:0] IO_port,
+    input logic [15:0] IO_port,
     input logic [31:0] adress,
-    //output logic io_control,
     output logic [31:0] bus_out
     );
     
     always_comb begin
-        //io_control = 0;
         case(adress)
             32'd4: begin
-                bus_out = {24'd0,IO_port};
-                //io_control = 1;
+                bus_out = {16'd0,IO_port};
             end
             default bus_out = 32'hz;
         endcase

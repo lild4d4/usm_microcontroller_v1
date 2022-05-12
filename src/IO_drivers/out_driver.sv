@@ -24,7 +24,7 @@ module out_driver(
     input logic clk,reset,
     input logic [31:0] bus_in,
     input logic [31:0] adress,
-    output logic [7:0] IO_port
+    output logic [15:0] IO_port
     );
     
     logic [7:0] IO_port_prev;
@@ -37,7 +37,7 @@ module out_driver(
     always_comb begin
         IO_port_prev = IO_port;
         case(adress)
-            32'd8: IO_port_prev = bus_in[7:0];
+            32'd8: IO_port_prev = bus_in[15:0];
         endcase
     end
     
