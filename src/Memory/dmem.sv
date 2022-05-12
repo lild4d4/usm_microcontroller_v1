@@ -34,7 +34,10 @@ module dmem(
         case(SizeLoad)
             3'b010: rd = {{24{RAM[a[31:2]][a[1]][a[0]][7]}},RAM[a[31:2]][a[1]][a[0]]};  //LB
             3'b001: rd = {{16{RAM[a[31:2]][a[1]][a[1]][7]}},RAM[a[31:2]][a[1]]};        //LH
-            3'b000: rd = RAM[a[31:2]];                                                  //LW
+            3'b000: begin
+                        if(wd==32'd4 | wd==32'd8) rd = 32'hz;
+                        else rd = RAM[a[31:2]];
+                    end                                                 //LW
             3'b011: rd = {{24{~1}},RAM[a[31:2]][a[1]][a[0]]};                           //LBU
             3'b101: rd = {{16{~1}},RAM[a[31:2]][a[1]]};                                 //LHU
             default: rd = 32'd0;

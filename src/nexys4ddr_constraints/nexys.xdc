@@ -30,13 +30,13 @@ set_property -dict {PACKAGE_PIN R13 IOSTANDARD LVCMOS33} [get_ports {IO_port[7]}
 
 ## LEDs
 
-#set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS33} [get_ports {Leds[0]}]
-#set_property -dict {PACKAGE_PIN K15 IOSTANDARD LVCMOS33} [get_ports {Leds[1]}]
-#set_property -dict {PACKAGE_PIN J13 IOSTANDARD LVCMOS33} [get_ports {Leds[2]}]
-#set_property -dict {PACKAGE_PIN N14 IOSTANDARD LVCMOS33} [get_ports {Leds[3]}]
-#set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS33} [get_ports {Leds[4]}]
-#set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS33} [get_ports {Leds[5]}]
-#set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {Leds[6]}]
+set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS33} [get_ports {Leds[0]}]
+set_property -dict {PACKAGE_PIN K15 IOSTANDARD LVCMOS33} [get_ports {Leds[1]}]
+set_property -dict {PACKAGE_PIN J13 IOSTANDARD LVCMOS33} [get_ports {Leds[2]}]
+set_property -dict {PACKAGE_PIN N14 IOSTANDARD LVCMOS33} [get_ports {Leds[3]}]
+set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS33} [get_ports {Leds[4]}]
+set_property -dict {PACKAGE_PIN V17 IOSTANDARD LVCMOS33} [get_ports {Leds[5]}]
+set_property -dict {PACKAGE_PIN U17 IOSTANDARD LVCMOS33} [get_ports {Leds[6]}]
 set_property -dict {PACKAGE_PIN U16 IOSTANDARD LVCMOS33} [get_ports {Leds[7]}]
 #set_property -dict { PACKAGE_PIN V16   IOSTANDARD LVCMOS33 } [get_ports { LED[8] }]; #IO_L16N_T2_A15_D31_14 Sch=led[8]
 #set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33 } [get_ports { LED[9] }]; #IO_L14N_T2_SRCC_14 Sch=led[9]
@@ -105,13 +105,13 @@ set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33} [get_ports run_cpu]
 
 ##Pmod Header JB
 
-set_property -dict { PACKAGE_PIN D14   IOSTANDARD LVCMOS33 } [get_ports { Leds[0] }]; #IO_L1P_T0_AD0P_15 Sch=jb[1]
-set_property -dict { PACKAGE_PIN F16   IOSTANDARD LVCMOS33 } [get_ports { Leds[1] }]; #IO_L14N_T2_SRCC_15 Sch=jb[2]
-set_property -dict { PACKAGE_PIN G16   IOSTANDARD LVCMOS33 } [get_ports { Leds[2] }]; #IO_L13N_T2_MRCC_15 Sch=jb[3]
-set_property -dict { PACKAGE_PIN H14   IOSTANDARD LVCMOS33 } [get_ports { Leds[3] }]; #IO_L15P_T2_DQS_15 Sch=jb[4]
-set_property -dict { PACKAGE_PIN E16   IOSTANDARD LVCMOS33 } [get_ports { Leds[4] }]; #IO_L11N_T1_SRCC_15 Sch=jb[7]
-set_property -dict { PACKAGE_PIN F13   IOSTANDARD LVCMOS33 } [get_ports { Leds[5] }]; #IO_L5P_T0_AD9P_15 Sch=jb[8]
-set_property -dict { PACKAGE_PIN G13   IOSTANDARD LVCMOS33 } [get_ports { Leds[6] }]; #IO_0_15 Sch=jb[9]
+#set_property -dict { PACKAGE_PIN D14   IOSTANDARD LVCMOS33 } [get_ports { Leds[0] }]; #IO_L1P_T0_AD0P_15 Sch=jb[1]
+#set_property -dict { PACKAGE_PIN F16   IOSTANDARD LVCMOS33 } [get_ports { Leds[1] }]; #IO_L14N_T2_SRCC_15 Sch=jb[2]
+#set_property -dict { PACKAGE_PIN G16   IOSTANDARD LVCMOS33 } [get_ports { Leds[2] }]; #IO_L13N_T2_MRCC_15 Sch=jb[3]
+#set_property -dict { PACKAGE_PIN H14   IOSTANDARD LVCMOS33 } [get_ports { Leds[3] }]; #IO_L15P_T2_DQS_15 Sch=jb[4]
+#set_property -dict { PACKAGE_PIN E16   IOSTANDARD LVCMOS33 } [get_ports { Leds[4] }]; #IO_L11N_T1_SRCC_15 Sch=jb[7]
+#set_property -dict { PACKAGE_PIN F13   IOSTANDARD LVCMOS33 } [get_ports { Leds[5] }]; #IO_L5P_T0_AD9P_15 Sch=jb[8]
+#set_property -dict { PACKAGE_PIN G13   IOSTANDARD LVCMOS33 } [get_ports { Leds[6] }]; #IO_0_15 Sch=jb[9]
 #set_property -dict { PACKAGE_PIN H16   IOSTANDARD LVCMOS33 } [get_ports { JB[10] }]; #IO_L13P_T2_MRCC_15 Sch=jb[10]
 
 

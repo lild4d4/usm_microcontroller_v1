@@ -30,25 +30,26 @@ module top(
     output logic [2:0] state
     );
     
+    //Clocks
+    clock_divider #(163) div(clk,~reset, div_clk);          //UART Clock, set 163 for 9600 bauds or set 13 for 115200 bauds
+	clock_divider #(49999) div1(clk, ~reset, div_clk1);
+    
+    //UART/Debug signals
     assign rx_debug = rx;
     assign tx_debug = tx;
-    
     logic word_end;
     logic cpu_run;
     
-    logic io_control;
-    logic [31:0] mem_data;
-    logic [31:0] switches_data;
+    //CPU signals
+    logic [31:0] data_in;
     
-    logic [31:0] instr,data_in,PC,data_out1,write_direction,extend_data;
+    logic [31:0] instr,PC,data_out1,write_direction,extend_data;
     logic [1:0] MemWrite;
     logic [2:0] SizeLoad;
     
     logic div_clk,div_clk1;
 
-    //Clocks
-    clock_divider #(163) div(clk,~reset, div_clk);
-	clock_divider #(49999) div1(clk, ~reset, div_clk1);
+    
     
     logic cpu_reset;
     
@@ -59,11 +60,10 @@ module top(
     cpu_usm_v1 cpu(cpu_run,~reset,instr,data_in,PC,data_out1,write_direction,extend_data,MemWrite,SizeLoad);
     
     //Memorycpu_run
-    dmem memoria(cpu_run,MemWrite,SizeLoad,write_direction,data_out1,mem_data);
+    dmem memoria(cpu_run,MemWrite,SizeLoad,write_direction,data_out1,data_in);
     
     //switches dir = 4
-    in_driver switchesio(IO_port,write_direction,io_control,switches_data);
-    mux2 #(32) iomux(mem_data,switches_data,io_control,data_in);
+    in_driver switchesio(IO_port,write_direction,data_in);
     
     //LEDs dir = 8
     out_driver leds(clk,~reset,data_out1,write_direction,Leds);
