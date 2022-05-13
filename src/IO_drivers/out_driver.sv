@@ -27,7 +27,7 @@ module out_driver(
     output logic [15:0] IO_port
     );
     
-    logic [7:0] IO_port_prev;
+    logic [15:0] IO_port_prev;
     
     always_ff@(posedge clk) begin
         if(reset) IO_port = 0;

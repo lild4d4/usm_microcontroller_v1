@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Daniel Arevalos Ortiz
 // 
 // Create Date: 17.02.2022 18:21:46
 // Design Name: 

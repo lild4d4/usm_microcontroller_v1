@@ -36,6 +36,7 @@ module cpu_usm_v1(
     logic [3:0] Flags,ALUControl;
     logic RegWrite,ALUSrc,ResultSrc;
     logic [1:0] PCtoRd,PCSrc;
+    logic [31:0] extend_data;
     
     logic [4:0] rs1,rs2,rd;
     logic [31:0] rd1,rd2_1,rd2_2,data_reg,ALU_result,pctarget_result,next_pc,next_pc_2,ResultSrc_data;
