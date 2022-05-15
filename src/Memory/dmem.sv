@@ -28,7 +28,7 @@ module dmem(
     output logic [31:0] rd
     );
     
-    logic [1:0][1:0][7:0] RAM[63:0];
+    logic [1:0][1:0][7:0] RAM[255:0];
     
     always_comb begin
         case(SizeLoad)

@@ -44,7 +44,7 @@ module extend(
             3'b100: ExtImm = {{12{Instr[31]}},Instr[19:12],Instr[20],Instr[30:21],1'b0};
             //3'b100: ExtImm = 32'd3;
                             //I-TYPE_MOD -> for SLLI/SRLI/SRAI
-            3'b101: ExtImm = {{27{~1}}, Instr[24:20]};
+            3'b101: ExtImm = {{27'd0}, Instr[24:20]};
                             
             default: ExtImm = 32'bx;
         endcase

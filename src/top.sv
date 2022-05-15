@@ -62,6 +62,6 @@ module top(
     in_driver switchesio(Switches,write_direction,data_in);
     
     //LEDs dir = 8 <- this is just for test, should be at the end of the memory
-    out_driver leds(clk,~reset,data_out1,write_direction,Leds);
+    out_driver leds(clk,~reset,data_out1,write_direction,MemWrite,Leds);
     
 endmodule

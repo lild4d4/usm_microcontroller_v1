@@ -34,9 +34,9 @@ module maindecoder(
     
     always_comb begin
         case(opcode)
-            7'b0110011: controls = 15'b1xxx00000000000;             //Arithmetic and Shift
-            7'b0010011: begin                                       //Imm Arithmetic
-                if(funct3 == 3'b001 || funct3 == 3'b101) begin
+            7'b0110011: controls = 15'b1xxx00000000000;             //Arithmetic 
+            7'b0010011: begin                                       //Shift
+                if(funct3 == 3'b001 | funct3 == 3'b101) begin
                     controls = 15'b110110000000000;
                 end
                 else begin
