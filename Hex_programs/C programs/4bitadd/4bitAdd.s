@@ -8,7 +8,7 @@
 	.globl	main
 	.type	main, @function
 main:
-	addi	sp,sp,200
+	addi 	sp,sp,400
 	addi	sp,sp,-32
 	sw	s0,28(sp)
 	addi	s0,sp,32
@@ -27,7 +27,7 @@ main:
 	lw	a5,-28(s0)
 	add	a5,a4,a5
 	sw	a5,-32(s0)
-	li	a5,258
+	li	a5,8
 	lw	a4,-32(s0)
 	sw	a4,0(a5)
 	j	.L2

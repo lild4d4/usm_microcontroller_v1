@@ -21,7 +21,7 @@
 
 
 module top(
-    input logic clk, reset,run_cpu,
+    input logic clk, reset,
     input logic rx,
     input logic [15:0] Switches,
     output logic tx,
@@ -62,6 +62,6 @@ module top(
     in_driver switchesio(Switches,write_direction,data_in);
     
     //LEDs dir = 8 <- this is just for test, should be at the end of the memory
-    out_driver leds(clk,~reset,data_out1,write_direction,MemWrite,Leds);
+    out_driver leds(clk,~reset,data_out1[15:0],write_direction[15:0],MemWrite,Leds);
     
 endmodule

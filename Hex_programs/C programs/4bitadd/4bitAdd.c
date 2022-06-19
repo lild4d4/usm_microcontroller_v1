@@ -4,7 +4,7 @@
 
 // memory-mapped I/O addresses
 #define GPIO_SWs    0x00000004
-#define GPIO_LEDs   0x00000102
+#define GPIO_LEDs   0x00000008
 
 #define READ_GPIO(dir) (*(volatile unsigned *)dir)
 #define WRITE_GPIO(dir, value) { (*(volatile unsigned *)dir) = (value); }

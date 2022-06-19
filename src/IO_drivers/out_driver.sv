@@ -22,8 +22,8 @@
 
 module out_driver(
     input logic clk,reset,
-    input logic [31:0] bus_in,
-    input logic [31:0] adress,
+    input logic [15:0] bus_in,
+    input logic [15:0] adress,
     input logic [1:0] MemWrite,
     output logic [15:0] IO_port
     );
@@ -39,7 +39,8 @@ module out_driver(
         IO_port_prev = IO_port;
         if(MemWrite[0]|MemWrite[1]) begin
             case(adress)
-                32'd8: IO_port_prev = bus_in[15:0];
+                16'h0008: IO_port_prev = bus_in[15:0];
+                default: IO_port_prev = IO_port;
             endcase
             //else IO_port_prev = IO_port;
         end
