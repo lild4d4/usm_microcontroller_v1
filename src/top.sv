@@ -31,10 +31,10 @@ module top(
     );
     
     //Clocks
-    logic div_clk;
+    //logic div_clk;
     //logic div_clk1;
     
-    clock_divider #(163) div(clk,~reset, div_clk);          //UART Clock, set 163 for 9600 bauds or set 13 for 115200 bauds
+    //clock_divider #(163) div(clk,~reset, div_clk);          //UART Clock, set 163 for 9600 bauds or set 13 for 115200 bauds
 	//clock_divider #(49999) div1(clk, ~reset, div_clk1);   //7 segments display clock (only used for debug)
     
     //UART/Debug signals
